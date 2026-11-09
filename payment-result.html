@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment Status | J M Enterprise</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#f7f3e9;color:#10243a;font-family:Arial,sans-serif}.card{width:min(560px,100%);background:#fff;border:1px solid #e7dcc6;border-radius:18px;padding:34px;box-shadow:0 18px 50px #0b203018;text-align:center}.mark{font-size:38px;color:#a9823e}h1{font-family:Georgia,serif;font-weight:500}p{line-height:1.7;color:#5c6877}.btn{display:inline-block;margin-top:16px;padding:12px 20px;border-radius:9px;background:#b8924b;color:#081b33;text-decoration:none;font-weight:bold}
+</style>
+</head>
+<body><main class="card">
+<div class="mark">✦</div>
+<h1 id="title">Payment status</h1>
+<p id="message">Your payment response has been received. The server must verify the transaction before the booking can be confirmed.</p>
+<p><strong>J M Enterprise</strong><br>jmeworldbd@gmail.com · +880 1971-566477</p>
+<a class="btn" href="./">Return to website</a>
+</main>
+<script>
+const status=new URLSearchParams(location.search).get("status");
+const title=document.getElementById("title"),message=document.getElementById("message");
+if(status==="failed"){title.textContent="Payment not completed";message.textContent="The payment was not completed. Please contact J M Enterprise for assistance."}
+else if(status==="cancelled"){title.textContent="Payment cancelled";message.textContent="You cancelled the payment. No booking is confirmed yet."}
+else if(status==="success"){title.textContent="Payment submitted";message.textContent="Thank you. Your payment is being verified by the payment gateway server. A redirect message alone is not proof of successful payment."}
+else{title.textContent="Payment status";message.textContent="Please contact J M Enterprise if you need help with a payment."}
+</script>
+</body></html>
