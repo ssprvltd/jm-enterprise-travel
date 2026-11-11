@@ -114,7 +114,7 @@ function setLanguage(lang){language=lang;document.documentElement.lang=lang;docu
 langBtn.addEventListener('click',()=>setLanguage(language==='en'?'bn':'en'));
 document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
 document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
-document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');bookingType=tab.dataset.type;}));
+document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');bookingType=tab.dataset.type;document.getElementById('bookingForm').style.display=bookingType==='Flight'?'':'none';document.getElementById('flightResults').textContent=bookingType==='Flight'?'':(language==='bn'?'এই সেবার অনুরোধ WhatsApp-এ পাঠাতে যোগাযোগ করুন।':'For this service, please contact us via WhatsApp.');}));
 document.getElementById('year').textContent=new Date().getFullYear();
 const SUPABASE_URL='https://laryessalbplpgogolcq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_d8qqCJoV9KLfYpULgDcQeg_lBuKv2pS';
