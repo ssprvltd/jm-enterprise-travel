@@ -35,7 +35,9 @@ For production, use the approved live merchant credentials and set `SSLCOMMERZ_M
 ### Amadeus flight search
 - Deployed function: `amadeus-flight-search` (public endpoint; rate-limited in function memory).
 - Uses the **Amadeus test API only**: `https://test.api.amadeus.com`.
-- Required secrets: `AMADEUS_API_KEY`, `AMADEUS_API_SECRET`.
+- Test secrets: `AMADEUS_API_KEY`, `AMADEUS_API_SECRET`.
+- Optional production switch: set `AMADEUS_MODE=production` and configure separate `AMADEUS_PRODUCTION_API_KEY`, `AMADEUS_PRODUCTION_API_SECRET` after Amadeus approves the app for production. If `AMADEUS_MODE` is unset or not `production`, the function remains in test mode.
+- Production API base is `https://api.amadeus.com`; test base is `https://test.api.amadeus.com`.
 - Returns test flight offers only. The function explicitly returns `mode: "test"` and `live_booking: false`; it does not issue tickets or confirm bookings.
 - Production API access and a separate booking/ticketing workflow are required before selling tickets.
 
