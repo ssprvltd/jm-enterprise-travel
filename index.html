@@ -78,6 +78,19 @@
 <div class="field"><label data-en="RETURN DATE (OPTIONAL)" data-bn="ফেরার তারিখ (ঐচ্ছিক)">RETURN DATE (OPTIONAL)</label><input name="returnDate" type="date"></div>
 <div class="field"><label data-en="ADULTS" data-bn="প্রাপ্তবয়স্ক যাত্রী">ADULTS</label><select name="adults"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></div>
 </div><div class="form-bottom"><span class="hint" data-en="Search Amadeus flight offers. Test mode uses limited sample data; ticketing is not available here." data-bn="Amadeus থেকে ফ্লাইট অফার খুঁজুন। টেস্ট মোডে সীমিত নমুনা তথ্য আসে; এখানে টিকিট ইস্যু হয় না।">Search Amadeus flight offers. Test mode uses limited sample data; ticketing is not available here.</span><button class="btn" type="submit" id="flightSearchBtn" data-en="Search Flights →" data-bn="ফ্লাইট খুঁজুন →">Search Flights →</button></div></form><div id="flightResults" class="notice" aria-live="polite"></div>
+<form id="hotelEnquiryForm" style="display:none;margin-top:18px">
+<div class="formgrid">
+<div class="field"><label data-en="DESTINATION CITY" data-bn="গন্তব্য শহর">DESTINATION CITY</label><input name="destination" required maxlength="100" placeholder="Dubai"></div>
+<div class="field"><label data-en="CHECK-IN" data-bn="চেক-ইন">CHECK-IN</label><input name="checkIn" type="date" required></div>
+<div class="field"><label data-en="CHECK-OUT" data-bn="চেক-আউট">CHECK-OUT</label><input name="checkOut" type="date" required></div>
+<div class="field"><label data-en="ROOMS" data-bn="রুম">ROOMS</label><select name="rooms"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+<div class="field"><label data-en="ADULTS" data-bn="প্রাপ্তবয়স্ক">ADULTS</label><select name="adults"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
+<div class="field"><label data-en="YOUR NAME" data-bn="আপনার নাম">YOUR NAME</label><input name="name" required maxlength="100"></div>
+<div class="field"><label data-en="PHONE / WHATSAPP" data-bn="ফোন / WhatsApp">PHONE / WHATSAPP</label><input name="phone" required maxlength="30" placeholder="+880"></div>
+</div>
+<div class="form-bottom"><span class="hint" data-en="Send a hotel availability request. Our team will confirm options and prices; no booking is confirmed by this enquiry." data-bn="হোটেলের প্রাপ্যতা জানতে অনুরোধ পাঠান। আমাদের টিম বিকল্প ও মূল্য নিশ্চিত করবে; এই অনুরোধে বুকিং নিশ্চিত হয় না।">Send a hotel availability request. Our team will confirm options and prices; no booking is confirmed by this enquiry.</span><button class="btn" type="submit" id="hotelEnquiryBtn" data-en="Request Hotel Options →" data-bn="হোটেলের তথ্য চান →">Request Hotel Options →</button></div>
+<div id="hotelEnquiryStatus" class="notice" aria-live="polite"></div>
+</form>
 </div></div></section>
 <section class="section" id="services"><div class="container"><div class="section-head"><div class="kicker" data-en="WHAT WE DO" data-bn="আমাদের সেবাসমূহ">WHAT WE DO</div><h2 data-en="Travel services, all in one place" data-bn="সব ধরনের ভ্রমণ সেবা, এক ঠিকানায়">Travel services, all in one place</h2><p data-en="Thoughtful travel support from planning to departure. Tell us what you need and our team will guide you through the next steps." data-bn="ভ্রমণ পরিকল্পনা থেকে যাত্রা পর্যন্ত আন্তরিক সহযোগিতা। আপনার প্রয়োজন জানান, আমাদের টিম পরবর্তী ধাপে সহায়তা করবে।">Thoughtful travel support from planning to departure. Tell us what you need and our team will guide you through the next steps.</p></div>
 <div class="cards">
@@ -114,7 +127,7 @@ function setLanguage(lang){language=lang;document.documentElement.lang=lang;docu
 langBtn.addEventListener('click',()=>setLanguage(language==='en'?'bn':'en'));
 document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
 document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
-document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');bookingType=tab.dataset.type;document.getElementById('bookingForm').style.display=bookingType==='Flight'?'':'none';document.getElementById('flightResults').textContent=bookingType==='Flight'?'':(language==='bn'?'এই সেবার অনুরোধ WhatsApp-এ পাঠাতে যোগাযোগ করুন।':'For this service, please contact us via WhatsApp.');}));
+document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');bookingType=tab.dataset.type;document.getElementById('bookingForm').style.display=bookingType==='Flight'?'':'none';document.getElementById('hotelEnquiryForm').style.display=bookingType==='Hotel'?'':'none';document.getElementById('flightResults').textContent=bookingType==='Flight'?'':(bookingType==='Hotel'?'':(language==='bn'?'এই সেবার জন্য যোগাযোগ করুন।':'Please contact our team for this service.'));}));
 document.getElementById('year').textContent=new Date().getFullYear();
 const SUPABASE_URL='https://laryessalbplpgogolcq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_d8qqCJoV9KLfYpULgDcQeg_lBuKv2pS';
@@ -142,6 +155,23 @@ document.getElementById('bookingForm').addEventListener('submit',async e=>{
   offers.forEach(offer=>{const segs=offer.itineraries?.[0]?.segments||[],first=segs[0],last=segs[segs.length-1],card=document.createElement('div');card.style.cssText='border:1px solid #e8dfd0;border-radius:12px;padding:14px;margin:10px 0;background:#fffdf8';const price=document.createElement('strong');price.textContent=(offer.price?.currency||'')+' '+(offer.price?.total||'—');price.style.cssText='font-size:20px;color:#9b783c';const info=document.createElement('div');info.style.cssText='font-size:13px;line-height:1.8;margin-top:6px';info.textContent=(first?.departure?.iataCode||d.origin.toUpperCase())+' '+(first?.departure?.at||'')+' → '+(last?.arrival?.iataCode||d.destination.toUpperCase())+' '+(last?.arrival?.at||'')+' · '+Math.max(0,segs.length-1)+' stop(s) · '+(offer.validatingAirlineCodes||[]).join(', ');card.append(price,info);flightResults.append(card);});
  }catch(err){flightResults.textContent=err.message||'Flight search failed.';}
  finally{flightSearchBtn.disabled=false;flightSearchBtn.textContent=language==='bn'?'ফ্লাইট খুঁজুন →':'Search Flights →';}
+});
+document.getElementById('hotelEnquiryForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const d=Object.fromEntries(new FormData(e.target));
+ const status=document.getElementById('hotelEnquiryStatus'),button=document.getElementById('hotelEnquiryBtn');
+ if(d.checkOut<=d.checkIn){status.textContent=language==='bn'?'চেক-আউটের তারিখ চেক-ইনের পরে হতে হবে।':'Check-out must be after check-in.';return;}
+ const message=`J M Enterprise - Hotel Availability Enquiry\\nDestination: ${d.destination}\\nCheck-in: ${d.checkIn}\\nCheck-out: ${d.checkOut}\\nRooms: ${d.rooms}\\nAdults: ${d.adults}\\nName: ${d.name}\\nPhone: ${d.phone}\\nPlease share available hotel options and total prices.`;
+ const popup=window.open('about:blank','_blank');
+ button.disabled=true;button.textContent=language==='bn'?'পাঠানো হচ্ছে…':'Sending…';
+ try{
+  await saveEnquiry('contact_enquiries',{name:d.name,phone:d.phone,message});
+  sendWhatsApp(message,popup);
+  status.textContent=language==='bn'?'অনুরোধ সংরক্ষিত হয়েছে। WhatsApp-এ পাঠানো হচ্ছে।':'Your request was saved. Opening WhatsApp now.';
+ }catch(error){
+  console.error(error);sendWhatsApp(message,popup);
+  status.textContent=language==='bn'?'ডেটাবেসে সংরক্ষণ করা যায়নি; WhatsApp-এ অনুরোধ পাঠানো হচ্ছে।':'Could not save to the database; opening WhatsApp with your request.';
+ }finally{button.disabled=false;button.textContent=language==='bn'?'হোটেলের তথ্য চান →':'Request Hotel Options →';}
 });
 document.getElementById('contactForm').addEventListener('submit',async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));const popup=window.open('about:blank','_blank');const message=`J M Enterprise - General Enquiry\nName: ${d.name}\nPhone: ${d.phone}\nMessage: ${d.message}`;try{await saveEnquiry('contact_enquiries',{name:d.name,phone:d.phone,message:d.message});sendWhatsApp(message,popup);alert(language==='bn'?'আপনার বার্তা সংরক্ষিত হয়েছে। WhatsApp-এ পাঠানো হচ্ছে।':'Your message has been saved. Opening WhatsApp now.');}catch(error){console.error(error);sendWhatsApp(message,popup);alert(language==='bn'?'ডেটাবেসে সংরক্ষণ করা যায়নি। WhatsApp-এ অনুরোধ পাঠানো হয়েছে।':'Could not save to the database. Your message is being sent via WhatsApp.');}});
 </script>
